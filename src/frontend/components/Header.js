@@ -9,6 +9,7 @@ import { history } from '../routers/AppRouter'
 const Header = (props) => {
   
     const signOut = ()=>{
+      localStorage.removeItem('auth');
       props.logout();
       axios.post("http://localhost:3000/users/logout", { dummy: '' }, { headers: { Authorization: 'Bearer ' + props.token } }).then(()=>{
         history.push("/console");

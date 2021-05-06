@@ -24,6 +24,11 @@ const HomePage = (props) => {
     })
   }, [currentPage, searchTerm, pending, answered]);
 
+  useEffect(()=> {
+    const strAuth = JSON.stringify(props.auth);
+    localStorage.setItem('auth', strAuth);
+  }, []);
+
   const handleDeleteFeedback = (message)=>{
     axios.post("http://localhost:3000/users/deletefeedback",{ message }, { headers: { Authorization: 'Bearer ' + props.token } }).then(()=>{
       history.push('/home');
@@ -135,7 +140,8 @@ const mapStateToProps = (state) => {
     selected: searchFeedbacks(state.feedback, state.search),
     token: state.auth.token,
     name: state.auth.name,
-    searchTerm: state.search.name
+    searchTerm: state.search.name,
+    auth: state.auth
   };
 };
 
