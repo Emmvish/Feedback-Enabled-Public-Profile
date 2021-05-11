@@ -26,7 +26,8 @@ The Admin Control Panel (ACP) has the following features:
 9. Messages to which any Logged in user replies, are turned Green. Otherwise, they're considered to be "Pending" and have a background color of 
    "red".
 10. Therefore, there exist 2 checkboxes, that allow one to see all "Pending" and "Answered" Feedback messages respectively, and results of these      lists reflect upon the original list returned by Search option.
-11. Only 4 feedback messages appear on each page. Pagination is taken care of so that it integrates well with searching & filtering mechanism.
-12. User is always "Welcomed" when they Log into the ACP. 
+11. Only 3 feedback messages appear on each page. Pagination is taken care of so that it integrates well with searching & filtering mechanism.
+12. Feedbacks are added and deleted in real time using SocketIO.
+13. User is always "Welcomed" when they Log into the ACP. 
 
 At the backend, this application uses JSON Web Tokens to initiate user logins and validate user requests and an Express server to host the front-end of project and for server-side routing. MongoDB has been used as the database to store feedback messages and user accounts. The main Profile page has been created with the help of Bootstrap, CSS and Vanilla Javascript. The front-end of Admin Control Panel has been created using React, React-Router (for client-side routing), Redux (for state management) and CSS. 
