@@ -49,7 +49,6 @@ io.on('connection', (socket)=>{
                 const collection = db.collection("feedback");
                 collection.insertOne(feedback).then(()=>{
                     client.close();
-                    feedback.timestamp = Date.now();
                     socket.broadcast.to("feedback-room").emit("refresh", feedback);
                     callback(false);
                 })
