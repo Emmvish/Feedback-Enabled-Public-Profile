@@ -49,7 +49,7 @@ io.on('connection', (socket)=>{
                 const collection = db.collection("feedback");
                 collection.insertOne(feedback).then(()=>{
                     client.close();
-                    socket.broadcast.to("feedback-room").emit("refresh", feedback);
+                    socket.broadcast.to("feedback-room").emit("refresh");
                     callback(false);
                 })
             } else {
