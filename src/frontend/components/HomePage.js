@@ -35,6 +35,7 @@ const HomePage = (props) => {
     const socket = socketIOClient(socketIOEndpoint);
     socket.emit("join", true);
     socket.on("refresh", (feedback) => {
+      feedback.hash = v4();
       setAddFeedback(feedback);
     });
   }, []);
