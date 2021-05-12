@@ -34,9 +34,8 @@ const HomePage = (props) => {
     localStorage.setItem('auth', strAuth);
     const socket = socketIOClient(socketIOEndpoint);
     socket.emit("join", true);
-    socket.on("refresh", (feedback) => {
-      feedback.hash = v4();
-      setAddFeedback(feedback);
+    socket.on("refresh", () => {
+      setAddFeedback({ hash: v4() });
     });
   }, []);
 
@@ -99,10 +98,10 @@ const HomePage = (props) => {
         <div>Feedback Messages</div>
         <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', marginRight: '10px'}}>
           <div style={{alignSelf: 'center'}}>
-          <input type='checkbox' onChange={(e) => { e.persist(); setPending(!pending); setCurrentPage(0);}} value={pending}></input><label>Show Pending</label>
+          <input type='checkbox' onChange={(e) => { e.persist(); setPending(!pending); setCurrentPage(0);}} value={pending} disabled={answered}></input><label>Show Pending</label>
           </div>
           <div style={{alignSelf: 'center'}}>
-          <input type='checkbox' onChange={(e) => { e.persist(); setAnswered(!answered); setCurrentPage(0); }} value={answered}></input><label>Show Answered</label>
+          <input type='checkbox' onChange={(e) => { e.persist(); setAnswered(!answered); setCurrentPage(0); }} value={answered} disabled={pending}></input><label>Show Answered</label>
           </div>
           <input type="search" placeholder="Search by name..." onChange={(e)=> {e.persist(); props.setSearchTerm(e.target.value); setSearchTerm(e.target.value); setCurrentPage(0);}} value={searchTerm}></input>
         </div>
