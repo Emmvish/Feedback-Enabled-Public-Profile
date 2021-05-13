@@ -36,10 +36,16 @@ app.get("*", (req, res)=>{
     res.sendFile(path.join(publicPath, "index.html"))
 })
 
+
+
 io.on('connection', (socket)=>{
 
-    socket.on("join", ()=>{
-        socket.join("feedback-room")
+    socket.on("join", (isAdmin)=>{
+        if(isAdmin) {
+            socket.join("reception-room")
+        } else {
+            socket.join("feedback-room")
+        }
     })
 
     socket.on("feedback", (feedback, callback)=>{
@@ -49,7 +55,7 @@ io.on('connection', (socket)=>{
                 const collection = db.collection("feedback");
                 collection.insertOne(feedback).then(()=>{
                     client.close();
-                    socket.broadcast.to("feedback-room").emit("refresh");
+                    socket.broadcast.to("reception-room").emit("refresh");
                     callback(false);
                 })
             } else {
