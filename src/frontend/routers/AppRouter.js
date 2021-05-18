@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 import { Router, Switch } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 
@@ -8,22 +7,12 @@ import EditProfile from '../components/EditProfile'
 import HomePage from '../components/HomePage';
 import LoginPage from '../components/LoginPage';
 
-import { login } from '../actions/auth';
-
 import PrivateRoute from '../routers/PrivateRoute'
 import PublicRoute from '../routers/PublicRoute'
 
 export const history = createHistory();
 
-const AppRouter = (props) => {
-
-  useEffect(()=>{
-    const strAuth = localStorage.getItem('auth');
-    if(strAuth) {
-        const auth = JSON.parse(strAuth);
-        props.login({name: auth.name, jwt: auth.token});
-    }
-  }, [])
+const AppRouter = () => {
 
   return (
       <Router history={history}>
@@ -39,8 +28,4 @@ const AppRouter = (props) => {
   )
 }
 
-const mapDispatchToProps = (dispatch)=>({
-  login: (userObj) => dispatch(login(userObj))
-})
-
-export default connect(undefined, mapDispatchToProps)(AppRouter);
+export default AppRouter;
